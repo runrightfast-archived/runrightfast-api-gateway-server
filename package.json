@@ -1,0 +1,39 @@
+{
+	"name":"runrightfast-api-gateway-server",
+	"version":"0.0.1",
+	"description":"RunRightFast API Gateway",
+	"repository":{
+		"type":"git",
+		"url":"https://github.com/runrightfast/runrightfast-api-gateway-server.git"
+	},
+	"main":"index",
+	"scripts":{
+		"blanket":{
+			"pattern":[
+				"lib/logging.js"
+			]
+		}		
+	},
+	"author":"Alfio Zappala",
+	"license":"Apache v2",
+	"dependencies":{
+		"hapi":"1.11.x",
+		"lout":"0.5.x",		
+		"handlebars":"1.0.x",
+		"furball":"0.3.x",
+		"runrightfast-hapi-server":"git://github.com/runrightfast/runrightfast-hapi-server#0.0.8",
+		"runrightfast-commons":"git://github.com/runrightfast/runrightfast-commons#0.0.8",
+		"lodash":"2.0.x",
+		"log4js":"0.6.x"		
+	},
+	"devDependencies":{
+		"grunt":"~0.4.1",
+		"grunt-jslint":"~1.0.0",
+		"mocha":"~1.12.1",
+		"chai":"~1.7.2",
+		"sinon":"~1.7.3",
+		"sinon-chai":"~2.4.0",
+		"grunt-mocha-cov":"~0.0.7",
+		"grunt-contrib-clean":"~0.5.0"		
+	}
+}
