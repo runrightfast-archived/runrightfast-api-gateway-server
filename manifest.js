@@ -19,7 +19,7 @@ var config = require('runrightfast-commons').config;
 module.exports = {
 	pack : {},
 	servers : [ {
-		port : parseInt(config.param('RRF_PORT', '8000'), 10),
+		port : parseInt(config.param('RRF_PORT', '8080'), 10),
 		options : {
 			labels : [ 'api' ]
 		}
@@ -31,6 +31,12 @@ module.exports = {
 		'furball' : {
 			version : false,
 			plugins : '/api/hapi/plugins'
+		},
+		'runrightfast-logging-server-proxy-hapi-plugin' : {
+			proxy : {
+				host : 'localhost',
+				port : 8000
+			}
 		}
 	}
 };
