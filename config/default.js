@@ -13,34 +13,12 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
+'use strict';
 
-/**
- * The following options can be configured via system environment variables:
- * 
- * <pre>
- * RRF_HTTP_PORT - default is 8000
- * RRF_LOG_LEVEL - default is 'WARN'
- * </pre>
- * 
- */
-(function() {
-	'use strict';
-
-	var HapiServer = require('runrightfast-hapi-server');
-	var manifest = require('./manifest');
-	var CONFIG = require('config').HapiServer;
-
-	var options = {
-		manifest : manifest,
-		logLevel : CONFIG.logLevel,
-		stopTimeout : CONFIG.stopTimeout,
-		startCallback : function(error) {
-			if (error) {
-				console.error(error);
-			}
-		}
-	};
-
-	new HapiServer(options);
-
-}());
+module.exports = {
+	HapiServer : {
+		logLevel : 'WARN',
+		stopTimeout : 5000,
+		port : 8080
+	}
+};

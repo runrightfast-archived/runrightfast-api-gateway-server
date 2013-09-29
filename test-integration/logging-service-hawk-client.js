@@ -14,33 +14,27 @@
  * the License.
  */
 
-/**
- * The following options can be configured via system environment variables:
- * 
- * <pre>
- * RRF_HTTP_PORT - default is 8000
- * RRF_LOG_LEVEL - default is 'WARN'
- * </pre>
- * 
- */
-(function() {
-	'use strict';
+var Hawk = require('hawk');
 
-	var HapiServer = require('runrightfast-hapi-server');
-	var manifest = require('./manifest');
-	var CONFIG = require('config').HapiServer;
+var before = Hawk.sntp.now();
+console.log(before);
 
-	var options = {
-		manifest : manifest,
-		logLevel : CONFIG.logLevel,
-		stopTimeout : CONFIG.stopTimeout,
-		startCallback : function(error) {
-			if (error) {
-				console.error(error);
-			}
-		}
-	};
+Hawk.sntp.start(function() {
+	var now = Hawk.sntp.now(); // With offset
+	console.log(now);
+	Hawk.sntp.stop();
+});
 
-	new HapiServer(options);
+var credentials = {
+	id : 'd74s3nz2873n',
+	key : 'werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn',
+	algorithm : 'sha256'
+};
 
-}());
+var header = Hawk.client.header('http://localhost:8080/api/runrightfast-logging-service/log', 'POST', {
+	credentials : credentials,
+	ext : 'some-app-data'
+});
+
+console.log(header);
+console.log(header.field);

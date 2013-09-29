@@ -14,38 +14,23 @@
  * the License.
  */
 'use strict';
-var CONFIG = require('config').HapiServer;
+
+var credentials = {
+	d74s3nz2873n : {
+		key : 'werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn',
+		algorithm : 'sha256'
+	}
+};
+
+var getCredentials = function(id, callback) {
+	return callback(null, credentials[id]);
+};
 
 module.exports = {
-	pack : {},
-	servers : [ {
-		port : CONFIG.port,
-		options : {
-			labels : [ 'api' ],
-			auth : {
-				hawk : {
-					scheme : 'hawk',
-					// the scheme is automatically assigned as a
-					// required strategy to any route without an
-					// auth config
-					defaultMode : true,
-					getCredentialsFunc : CONFIG.auth.hawk.getCredentials
-				}
-			}
-		}
-	} ],
-	plugins : {
-		'lout' : {
-			endpoint : '/api/hapi/docs'
-		},
-		'furball' : {
-			version : false,
-			plugins : '/api/hapi/plugins'
-		},
-		'runrightfast-logging-server-proxy-hapi-plugin' : {
-			proxy : {
-				host : 'localhost',
-				port : 8000
+	HapiServer : {
+		auth : {
+			hawk : {
+				getCredentials : getCredentials
 			}
 		}
 	}
