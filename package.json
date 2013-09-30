@@ -27,7 +27,7 @@
 		"lodash":"2.0.x",
 		"log4js":"0.6.x",
 		"hawk":"1.1.x",
-		"config":"0.4.x"	
+		"config":"0.4.x"
 	},
 	"devDependencies":{
 		"grunt":"~0.4.1",

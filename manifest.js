@@ -14,13 +14,17 @@
  * the License.
  */
 'use strict';
+
 var CONFIG = require('config').HapiServer;
 var hawkAuthService = require('runrightfast-auth-service').hawkAuthService(CONFIG.auth.hawk);
+
 hawkAuthService.start();
 
-module.exports.stopCallback = hawkAuthService.stop.bind(hawkAuthService);
+var stopCallback = function() {
+	hawkAuthService.stop();
+};
 
-module.exports.manifest = {
+var manifest = {
 	pack : {},
 	servers : [ {
 		port : CONFIG.port,
@@ -54,3 +58,13 @@ module.exports.manifest = {
 		}
 	}
 };
+
+/**
+ * Invoked when the server is stopped.
+ */
+module.exports.stopCallback = stopCallback;
+
+/**
+ * The Hapi manifest that is used to compose the application
+ */
+module.exports.manifest = manifest;
