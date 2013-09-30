@@ -15,8 +15,12 @@
  */
 'use strict';
 var CONFIG = require('config').HapiServer;
+var hawkAuthService = require('runrightfast-auth-service').hawkAuthService(CONFIG.auth.hawk);
+hawkAuthService.start();
 
-module.exports = {
+module.exports.stopCallback = hawkAuthService.stop.bind(hawkAuthService);
+
+module.exports.manifest = {
 	pack : {},
 	servers : [ {
 		port : CONFIG.port,
@@ -29,7 +33,7 @@ module.exports = {
 					// required strategy to any route without an
 					// auth config
 					defaultMode : true,
-					getCredentialsFunc : CONFIG.auth.hawk.getCredentials
+					getCredentialsFunc : hawkAuthService.getCredentials.bind(hawkAuthService)
 				}
 			}
 		}

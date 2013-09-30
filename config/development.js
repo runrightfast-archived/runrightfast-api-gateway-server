@@ -15,22 +15,21 @@
  */
 'use strict';
 
-var credentials = {
-	d74s3nz2873n : {
-		key : 'werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn',
-		algorithm : 'sha256'
-	}
-};
-
-var getCredentials = function(id, callback) {
-	return callback(null, credentials[id]);
-};
-
 module.exports = {
 	HapiServer : {
 		auth : {
 			hawk : {
-				getCredentials : getCredentials
+				couchbase : {
+					"host" : [ "localhost:8091" ],
+					"bucket" : "default"
+				},
+				connectionListener : function(logger) {
+					console.log('CONNECTED TO COUCHBASE');
+				},
+				connectionErrorListener : function(error) {
+					console.error(error);
+				},
+				logLevel : 'INFO'
 			}
 		}
 	}

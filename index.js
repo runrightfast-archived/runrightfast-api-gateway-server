@@ -27,7 +27,8 @@
 	'use strict';
 
 	var HapiServer = require('runrightfast-hapi-server');
-	var manifest = require('./manifest');
+	var manifest = require('./manifest').manifest;
+	var stopCallback = require('./manifest').stopCallback;
 	var CONFIG = require('config').HapiServer;
 
 	var options = {
@@ -38,7 +39,8 @@
 			if (error) {
 				console.error(error);
 			}
-		}
+		},
+		stopCallback : stopCallback
 	};
 
 	new HapiServer(options);
