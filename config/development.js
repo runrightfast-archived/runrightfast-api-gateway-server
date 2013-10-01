@@ -31,6 +31,14 @@ module.exports = {
 				},
 				logLevel : 'INFO'
 			}
+		},
+		plugins : {
+			"runrightfast-logging-server-proxy-hapi-plugin" : {
+				proxy : {
+					host : 'localhost',
+					port : 8000
+				}
+			}
 		}
 	}
 };
