@@ -20,6 +20,7 @@ var CONFIG = require('config');
 var hawkAuthService = require('runrightfast-auth-service').hawkAuthService(CONFIG.HapiServer.auth.hawk);
 hawkAuthService.start();
 
+// Hapi Composer manifest
 var manifest = {
 	pack : {},
 	servers : [ {
@@ -50,6 +51,7 @@ var manifest = {
 	}
 };
 
+// HapiServer options
 module.exports = {
 	manifest : manifest,
 	logLevel : CONFIG.HapiServer.logLevel,
