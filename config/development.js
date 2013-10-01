@@ -16,7 +16,7 @@
 'use strict';
 
 module.exports = {
-	HapiServer : {
+	hapiServer : {
 		auth : {
 			hawk : {
 				couchbase : {

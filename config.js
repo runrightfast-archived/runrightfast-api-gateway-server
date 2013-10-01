@@ -15,16 +15,16 @@
  */
 'use strict';
 
-var CONFIG = require('config');
+var config = require('config');
 
-var hawkAuthService = require('runrightfast-auth-service').hawkAuthService(CONFIG.HapiServer.auth.hawk);
+var hawkAuthService = require('runrightfast-auth-service').hawkAuthService(config.hapiServer.auth.hawk);
 hawkAuthService.start();
 
 // Hapi Composer manifest
 var manifest = {
 	pack : {},
 	servers : [ {
-		port : CONFIG.HapiServer.port,
+		port : config.hapiServer.port,
 		options : {
 			labels : [ 'api' ],
 			auth : {
@@ -47,15 +47,15 @@ var manifest = {
 			version : false,
 			plugins : '/api/hapi/plugins'
 		},
-		'runrightfast-logging-server-proxy-hapi-plugin' : CONFIG.HapiServer.plugins['runrightfast-logging-server-proxy-hapi-plugin']
+		'runrightfast-logging-server-proxy-hapi-plugin' : config.hapiServer.plugins['runrightfast-logging-server-proxy-hapi-plugin']
 	}
 };
 
 // HapiServer options
 module.exports = {
 	manifest : manifest,
-	logLevel : CONFIG.HapiServer.logLevel,
-	stopTimeout : CONFIG.HapiServer.stopTimeout,
+	logLevel : config.hapiServer.logLevel,
+	stopTimeout : config.hapiServer.stopTimeout,
 	startCallback : function(error) {
 		if (error) {
 			console.error(error);

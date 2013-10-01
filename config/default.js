@@ -16,7 +16,7 @@
 'use strict';
 
 module.exports = {
-	HapiServer : {
+	hapiServer : {
 		logLevel : 'WARN',
 		stopTimeout : 5000,
 		port : 8080
