@@ -16,15 +16,9 @@
 'use strict';
 
 var CONFIG = require('config');
-console.log('CONFIG = ' + JSON.stringify(CONFIG));
 
 var hawkAuthService = require('runrightfast-auth-service').hawkAuthService(CONFIG.HapiServer.auth.hawk);
-
 hawkAuthService.start();
-
-var stopCallback = function() {
-	hawkAuthService.stop();
-};
 
 var manifest = {
 	pack : {},
@@ -57,8 +51,15 @@ var manifest = {
 };
 
 module.exports = {
-	// Invoked when the server is stopped.
-	stopCallback : stopCallback,
-	// The Hapi manifest that is used to compose the application
-	manifest : manifest
+	manifest : manifest,
+	logLevel : CONFIG.HapiServer.logLevel,
+	stopTimeout : CONFIG.HapiServer.stopTimeout,
+	startCallback : function(error) {
+		if (error) {
+			console.error(error);
+		}
+	},
+	stopCallback : function() {
+		hawkAuthService.stop();
+	}
 };

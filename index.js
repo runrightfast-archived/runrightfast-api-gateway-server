@@ -27,21 +27,7 @@
 	'use strict';
 
 	var HapiServer = require('runrightfast-hapi-server');
-	var config = require('./config');
-	var CONFIG = require('config').HapiServer;
 
-	var options = {
-		manifest : config.manifest,
-		logLevel : CONFIG.logLevel,
-		stopTimeout : CONFIG.stopTimeout,
-		startCallback : function(error) {
-			if (error) {
-				console.error(error);
-			}
-		},
-		stopCallback : config.stopCallback
-	};
-
-	new HapiServer(options);
+	new HapiServer(require('./config'));
 
 }());
