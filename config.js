@@ -17,8 +17,15 @@
 
 var config = require('config');
 
-var hawkAuthService = require('runrightfast-auth-service').hawkAuthService(config.hapiServer.auth.hawk);
-hawkAuthService.start();
+var cbConnManager = require('runrightfast-couchbase').couchbaseConnectionManager;
+var HawkAuthService = require('runrightfast-auth-service').HawkAuthService;
+
+cbConnManager.registerConnection(config.couchbaseConnectionManager);
+
+var hawkAuthService = new HawkAuthService({
+	couchbaseConn : cbConnManager.getBucketConnection(config.hapiServer.auth.hawk.couchbaseBucket),
+	logLevel : config.hapiServer.auth.hawk.logLevel
+});
 
 // Hapi Composer manifest
 var manifest = {
@@ -62,6 +69,7 @@ module.exports = {
 		}
 	},
 	stopCallback : function() {
-		hawkAuthService.stop();
+		// perform any resource cleanup work here
+		cbConnManager.stop();
 	}
 };

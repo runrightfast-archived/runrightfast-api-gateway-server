@@ -16,20 +16,28 @@
 'use strict';
 
 module.exports = {
+
+	couchbaseConnectionManager : {
+		couchbase : {
+			"host" : [ "localhost:8091" ],
+			buckets : [ {
+				"bucket" : "default",
+				aliases : [ 'default', 'hawk' ]
+			} ]
+		},
+		logLevel : 'WARN',
+		connectionListener : function() {
+			console.log('couchbaseConnectionManager.connectionListener : CONNECTED TO COUCHBASE');
+		},
+		connectionErrorListener : function(error) {
+			console.error('couchbaseConnectionManager.connectionErrorListener : ' + error);
+		}
+	},
 	hapiServer : {
 		auth : {
 			hawk : {
-				couchbase : {
-					"host" : [ "localhost:8091" ],
-					"bucket" : "default"
-				},
-				connectionListener : function(logger) {
-					console.log('CONNECTED TO COUCHBASE');
-				},
-				connectionErrorListener : function(error) {
-					console.error(error);
-				},
-				logLevel : 'INFO'
+				couchbaseBucket : 'hawk',
+				logLevel : 'WARN'
 			}
 		},
 		plugins : {
@@ -39,6 +47,7 @@ module.exports = {
 					port : 8000
 				}
 			}
-		}
+		},
+		logLevel : 'INFO'
 	}
 };
