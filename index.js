@@ -14,20 +14,10 @@
  * the License.
  */
 
-/**
- * The following options can be configured via system environment variables:
- * 
- * <pre>
- * RRF_HTTP_PORT - default is 8000
- * RRF_LOG_LEVEL - default is 'WARN'
- * </pre>
- * 
- */
 (function() {
 	'use strict';
 
 	var HapiServer = require('runrightfast-hapi-server');
-
 	new HapiServer(require('./config'));
 
 }());
