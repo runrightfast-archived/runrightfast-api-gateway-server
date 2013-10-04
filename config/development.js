@@ -13,41 +13,94 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-'use strict';
 
-module.exports = {
+(function() {
+	'use strict';
 
-	couchbaseConnectionManager : {
-		couchbase : {
-			"host" : [ "localhost:8091" ],
-			buckets : [ {
-				"bucket" : "default",
-				aliases : [ 'default', 'hawk' ]
-			} ]
-		},
-		logLevel : 'WARN',
-		connectionListener : function() {
-			console.log('couchbaseConnectionManager.connectionListener : CONNECTED TO COUCHBASE');
-		},
-		connectionErrorListener : function(error) {
-			console.error('couchbaseConnectionManager.connectionErrorListener : ' + error);
+	var getGoodSubcribers = function() {
+		var pkginfo = require('./pkgInfo');
+		var path = require('path');
+
+		var subscribers = {
+			console : []
+		};
+
+		var logDir = path.join(__dirname, '..', 'logs', pkginfo.name + '-' + pkginfo.version);
+
+		var fs = require('fs');
+		var stats = undefined;
+		try {
+			stats = fs.statSync(logDir);
+		} catch (err) {
+			console.log(err);
+			fs.mkdirSync(logDir, parseInt('0755', 8));
+			stats = fs.statSync(logDir);
 		}
-	},
-	hapiServer : {
-		auth : {
-			hawk : {
-				couchbaseBucket : 'hawk',
-				logLevel : 'WARN'
+
+		if (!stats.isDirectory()) {
+			throw new Error('log dir is not actually a directory: ' + logDir);
+		}
+
+		Object.defineProperty(subscribers, path.join(logDir, 'ops.' + process.pid + '.log'), {
+			value : [ 'ops' ],
+			enumerable : true
+		});
+		Object.defineProperty(subscribers, path.join(logDir, 'request.' + process.pid + '.log'), {
+			value : [ 'request' ],
+			enumerable : true
+		});
+		Object.defineProperty(subscribers, path.join(logDir, 'log.' + process.pid + '.log'), {
+			value : [ 'log' ],
+			enumerable : true
+		});
+		Object.defineProperty(subscribers, path.join(logDir, 'error.' + process.pid + '.log'), {
+			value : [ 'error' ],
+			enumerable : true
+		});
+
+		console.log(subscribers);
+
+		return subscribers;
+
+	};
+
+	module.exports = {
+
+		couchbaseConnectionManager : {
+			couchbase : {
+				"host" : [ "localhost:8091" ],
+				buckets : [ {
+					"bucket" : "default",
+					aliases : [ 'default', 'hawk' ]
+				} ]
+			},
+			logLevel : 'WARN',
+			connectionListener : function() {
+				console.log('couchbaseConnectionManager.connectionListener : CONNECTED TO COUCHBASE');
+			},
+			connectionErrorListener : function(error) {
+				console.error('couchbaseConnectionManager.connectionErrorListener : ' + error);
 			}
 		},
-		plugins : {
-			"runrightfast-logging-server-proxy-hapi-plugin" : {
-				proxy : {
-					host : 'localhost',
-					port : 8000
+		hapiServer : {
+			auth : {
+				hawk : {
+					couchbaseBucket : 'hawk',
+					logLevel : 'WARN'
 				}
-			}
-		},
-		logLevel : 'INFO'
-	}
-};
+			},
+			plugins : {
+				"runrightfast-logging-server-proxy-hapi-plugin" : {
+					proxy : {
+						host : 'localhost',
+						port : 8000
+					}
+				},
+				good : {
+					subscribers : getGoodSubcribers()
+				}
+			},
+			logLevel : 'INFO'
+		}
+	};
+}());

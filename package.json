@@ -17,17 +17,18 @@
 	"author":"Alfio Zappala",
 	"license":"Apache v2",
 	"dependencies":{		
-		"lout":"0.5.x",		
-		"handlebars":"1.0.x",
+		"lout":"0.5.x",
 		"furball":"0.3.x",
+		"good":"0.12.x",
 		"runrightfast-hapi-server":"git://github.com/runrightfast/runrightfast-hapi-server#0.0.15",
-		"runrightfast-logging-server-proxy-hapi-plugin":"git://github.com/runrightfast/runrightfast-logging-server-proxy-hapi-plugin#0.0.8",
+		"runrightfast-logging-server-proxy-hapi-plugin":"git://github.com/runrightfast/runrightfast-logging-server-proxy-hapi-plugin#0.0.10",
 		"runrightfast-auth-service":"git://github.com/runrightfast/runrightfast-auth-service#0.0.7",
 		"runrightfast-couchbase":"git://github.com/runrightfast/runrightfast-couchbase#0.0.5",
 		"lodash":"2.2.x",
 		"log4js":"0.6.x",
 		"hawk":"1.1.x",
-		"config":"0.4.x"
+		"config":"0.4.x",
+		"pkginfo":"0.3.x"
 	},
 	"devDependencies":{
 		"hapi":"1.13.x",
