@@ -17,72 +17,7 @@
 (function() {
 	'use strict';
 
-	var path = require('path');
-	var pkginfo = require('./pkgInfo');
-	var logDir = path.join(__dirname, '..', 'logs', pkginfo.name + '-' + pkginfo.version);
-
-	/**
-	 * <code>
-	 * - creates the specified logDir if it does not exist
-	 * - creates module sub dir under the logDir with the naming convention of : [module.name]-[module-version]
-	 * - in the module log dir, a log file for each of the good event types is created with the naming convention of:
-	 * 
-	 * 		[event]-[process.pid].log
-	 * 
-	 * NOTE: Each time the process is restarted, new log files will be created for the process.
-	 * 
-	 * NOTE: If the 'maxLogSize' option is set on the 'good' plugin, then the log file will be split.
-	 * 		 When split the log file extension will be incremented by 1. The initial log file has an extension of .001.
-	 * 
-	 * </code>
-	 */
-	var getGoodSubcribers = function(logDir) {
-		var assert = require('assert');
-		var lodash = require('lodash');
-		assert(lodash.isString(logDir), 'logDir is required');
-
-		var path = require('path');
-
-		var subscribers = {
-			console : []
-		};
-
-		var fs = require('fs');
-		var stats = undefined;
-		try {
-			stats = fs.statSync(logDir);
-		} catch (err) {
-			console.log(err);
-			fs.mkdirSync(logDir, parseInt('0755', 8));
-			stats = fs.statSync(logDir);
-		}
-
-		if (!stats.isDirectory()) {
-			throw new Error('log dir is not actually a directory: ' + logDir);
-		}
-
-		Object.defineProperty(subscribers, path.join(logDir, 'ops.' + process.pid + '.log'), {
-			value : [ 'ops' ],
-			enumerable : true
-		});
-		Object.defineProperty(subscribers, path.join(logDir, 'request.' + process.pid + '.log'), {
-			value : [ 'request' ],
-			enumerable : true
-		});
-		Object.defineProperty(subscribers, path.join(logDir, 'log.' + process.pid + '.log'), {
-			value : [ 'log' ],
-			enumerable : true
-		});
-		Object.defineProperty(subscribers, path.join(logDir, 'error.' + process.pid + '.log'), {
-			value : [ 'error' ],
-			enumerable : true
-		});
-
-		console.log(subscribers);
-
-		return subscribers;
-
-	};
+	var defaultConfig = require('./default');
 
 	module.exports = {
 
@@ -116,10 +51,8 @@
 						port : 8000
 					}
 				},
-				good : {
-					subscribers : getGoodSubcribers(logDir),
-					// maxLogSize = 10 mb
-					maxLogSize : 1024 * 1000 * 10
+				"runrightfast-process-monitor-hapi-plugin" : {
+					logDir : defaultConfig.hapiServer.logDir
 				}
 			},
 			logLevel : 'INFO'

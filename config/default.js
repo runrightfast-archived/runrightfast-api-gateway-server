@@ -15,10 +15,15 @@
  */
 'use strict';
 
+var path = require('path');
+var pkginfo = require('./pkgInfo');
+var logDir = path.join(__dirname, '..', 'logs', pkginfo.name + '-' + pkginfo.version);
+
 module.exports = {
 	hapiServer : {
 		logLevel : 'WARN',
 		stopTimeout : 5000,
-		port : 8080
+		port : 9000,
+		logDir : logDir
 	}
 };

@@ -22,6 +22,7 @@
 		"good":"0.12.x",
 		"runrightfast-hapi-server":"git://github.com/runrightfast/runrightfast-hapi-server#0.0.15",
 		"runrightfast-logging-server-proxy-hapi-plugin":"git://github.com/runrightfast/runrightfast-logging-server-proxy-hapi-plugin#0.0.10",
+		"runrightfast-process-monitor-hapi-plugin":"git://github.com/runrightfast/runrightfast-process-monitor-hapi-plugin#0.0.3",
 		"runrightfast-auth-service":"git://github.com/runrightfast/runrightfast-auth-service#0.0.7",
 		"runrightfast-couchbase":"git://github.com/runrightfast/runrightfast-couchbase#0.0.5",
 		"lodash":"2.2.x",
