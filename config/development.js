@@ -17,15 +17,35 @@
 (function() {
 	'use strict';
 
-	var getGoodSubcribers = function() {
-		var pkginfo = require('./pkgInfo');
+	var path = require('path');
+	var pkginfo = require('./pkgInfo');
+	var logDir = path.join(__dirname, '..', 'logs', pkginfo.name + '-' + pkginfo.version);
+
+	/**
+	 * <code>
+	 * - creates the specified logDir if it does not exist
+	 * - creates module sub dir under the logDir with the naming convention of : [module.name]-[module-version]
+	 * - in the module log dir, a log file for each of the good event types is created with the naming convention of:
+	 * 
+	 * 		[event]-[process.pid].log
+	 * 
+	 * NOTE: Each time the process is restarted, new log files will be created for the process.
+	 * 
+	 * NOTE: If the 'maxLogSize' option is set on the 'good' plugin, then the log file will be split.
+	 * 		 When split the log file extension will be incremented by 1. The initial log file has an extension of .001.
+	 * 
+	 * </code>
+	 */
+	var getGoodSubcribers = function(logDir) {
+		var assert = require('assert');
+		var lodash = require('lodash');
+		assert(lodash.isString(logDir), 'logDir is required');
+
 		var path = require('path');
 
 		var subscribers = {
 			console : []
 		};
-
-		var logDir = path.join(__dirname, '..', 'logs', pkginfo.name + '-' + pkginfo.version);
 
 		var fs = require('fs');
 		var stats = undefined;
@@ -97,7 +117,9 @@
 					}
 				},
 				good : {
-					subscribers : getGoodSubcribers()
+					subscribers : getGoodSubcribers(logDir),
+					// maxLogSize = 10 mb
+					maxLogSize : 1024 * 1000 * 10
 				}
 			},
 			logLevel : 'INFO'
