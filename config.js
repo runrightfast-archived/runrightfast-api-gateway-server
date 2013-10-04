@@ -54,8 +54,8 @@ var manifest = {
 			version : false,
 			plugins : '/api/hapi/plugins'
 		},
-		'runrightfast-logging-server-proxy-hapi-plugin' : config.hapiServer.plugins['runrightfast-logging-server-proxy-hapi-plugin'],
-		'runrightfast-process-monitor-hapi-plugin' : config.hapiServer.plugins['runrightfast-process-monitor-hapi-plugin']
+		'runrightfast-process-monitor-hapi-plugin' : config.hapiServer.plugins['runrightfast-process-monitor-hapi-plugin'],
+		'runrightfast-logging-server-proxy-hapi-plugin' : config.hapiServer.plugins['runrightfast-logging-server-proxy-hapi-plugin']
 	}
 };
 
