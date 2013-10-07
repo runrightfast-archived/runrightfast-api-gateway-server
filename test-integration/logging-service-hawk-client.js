@@ -26,12 +26,12 @@ Hawk.sntp.start(function() {
 });
 
 var credentials = {
-	id : 'd74s3nz2873n',
-	key : 'werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn',
-	algorithm : 'sha256'
+	"id" : "0d110d3bd15d4795b7e14cb0fa800967",
+	"key" : "cb4251fe46a34731af3202ee8bcd5a9d",
+	"algorithm" : "sha256"
 };
 
-var header = Hawk.client.header('http://localhost:8080/api/runrightfast-logging-service/log', 'POST', {
+var header = Hawk.client.header('http://localhost:8000/api/hapi/plugins', 'GET', {
 	credentials : credentials,
 	ext : 'some-app-data'
 });
