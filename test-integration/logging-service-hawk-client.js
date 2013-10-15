@@ -31,7 +31,7 @@ var credentials = {
 	"algorithm" : "sha256"
 };
 
-var header = Hawk.client.header('http://localhost:7000/api/hapi/plugins', 'GET', {
+var header = Hawk.client.header('http://localhost:7000/api/process-monitor-logs/logManager/tail//home/alfio/git/runrightfast-node-agent-server/temp/logs/ops.4740.log.001', 'GET', {
 	credentials : credentials,
 	ext : 'some-app-data'
 });
