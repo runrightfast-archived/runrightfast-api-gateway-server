@@ -1,6 +1,6 @@
 {
 	"name":"runrightfast-api-gateway-server",
-	"version":"0.0.10",
+	"version":"0.0.11",
 	"description":"RunRightFast API Gateway",
 	"repository":{
 		"type":"git",
@@ -22,9 +22,9 @@
 		"good":"0.12.x",
 		"runrightfast-hapi-server":"git://github.com/runrightfast/runrightfast-hapi-server#0.0.17",
 		"runrightfast-logging-server-proxy-hapi-plugin":"git://github.com/runrightfast/runrightfast-logging-server-proxy-hapi-plugin#0.0.10",
-		"runrightfast-process-monitor-hapi-plugin":"git://github.com/runrightfast/runrightfast-process-monitor-hapi-plugin#0.0.3",
-		"runrightfast-auth-service":"git://github.com/runrightfast/runrightfast-auth-service#0.0.7",
-		"runrightfast-couchbase":"git://github.com/runrightfast/runrightfast-couchbase#0.0.5",
+		"runrightfast-process-monitor-hapi-plugin":"git://github.com/runrightfast/runrightfast-process-monitor-hapi-plugin#0.0.4",
+		"runrightfast-auth-service":"git://github.com/runrightfast/runrightfast-auth-service#0.0.11",
+		"runrightfast-elasticsearch":"git://github.com/runrightfast/runrightfast-elasticsearch#0.0.2",
 		"lodash":"2.2.x",
 		"log4js":"0.6.x",
 		"hawk":"1.1.x",

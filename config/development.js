@@ -20,22 +20,8 @@
 	var defaultConfig = require('./default');
 
 	module.exports = {
-
-		couchbaseConnectionManager : {
-			couchbase : {
-				"host" : [ "localhost:8091" ],
-				buckets : [ {
-					"bucket" : "default",
-					aliases : [ 'default', 'hawk' ]
-				} ]
-			},
-			logLevel : 'WARN',
-			connectionListener : function() {
-				console.log('couchbaseConnectionManager.connectionListener : CONNECTED TO COUCHBASE');
-			},
-			connectionErrorListener : function(error) {
-				console.error('couchbaseConnectionManager.connectionErrorListener : ' + error);
-			}
+		elastic : {
+			host : 'localhost'
 		},
 		hapiServer : {
 			auth : {

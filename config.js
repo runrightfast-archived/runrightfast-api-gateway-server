@@ -17,15 +17,24 @@
 
 var config = require('config');
 
-var cbConnManager = require('runrightfast-couchbase').couchbaseConnectionManager;
-var HawkAuthService = require('runrightfast-auth-service').HawkAuthService;
+var createHawkauthService = function createHawkauthService() {
+	var ElasticSearchClient = require('runrightfast-elasticsearch').ElasticSearchClient;
+	var ejs = new ElasticSearchClient({
+		host : config.elastic.host,
+		port : config.elastic.port
+	}).ejs;
 
-cbConnManager.registerConnection(config.couchbaseConnectionManager);
+	var HawkAuthService = require('runrightfast-auth-service').HawkAuthService;
 
-var hawkAuthService = new HawkAuthService({
-	couchbaseConn : cbConnManager.getBucketConnection(config.hapiServer.auth.hawk.couchbaseBucket),
-	logLevel : config.hapiServer.auth.hawk.logLevel
-});
+	return new HawkAuthService({
+		elastic : {
+			ejs : ejs
+		},
+		logLevel : config.hapiServer.auth.hawk.logLevel
+	});
+}
+
+var hawkAuthService = createHawkauthService();
 
 // Hapi Composer manifest
 var manifest = {
@@ -71,6 +80,5 @@ module.exports = {
 	},
 	stopCallback : function() {
 		// perform any resource cleanup work here
-		cbConnManager.stop();
 	}
 };
